@@ -2,7 +2,7 @@
 #include <vector>
 #include <chrono>
 
-constexpr int N = 100000;
+constexpr int N = 10000000;
 constexpr double TOL = 1e-4;
 
 int main() {
@@ -16,7 +16,9 @@ int main() {
     }
 
     // Add two vectors using a simple loop and measure time.
+    
     auto start = std::chrono::high_resolution_clock::now();
+    #pragma omp parallel for default(shared) schedule(dynamic)
     for (int i = 0; i < N; ++i) {
         c[i] = a[i] + b[i];
     }
